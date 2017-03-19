@@ -494,6 +494,11 @@ class Blob(_PropertyMixin):
 
         # Configure the upload request parameters.
         request = Request(upload_url, 'POST', headers)
+        
+        if self._properties:
+            headers['content-type'] = 'application/json'
+            request.body = json.dumps(self._properties)
+        
         upload.configure_request(upload_config, request, url_builder)
 
         # Configure final URL
